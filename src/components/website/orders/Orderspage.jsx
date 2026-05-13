@@ -9,14 +9,12 @@ import { IoRestaurantOutline, IoListOutline } from "react-icons/io5";
 import { RefreshCcw } from "lucide-react";
 import { MdCancel } from "react-icons/md";
 
-
 export default function OrdersPage() {
   const [activeTab, setActiveTab] = useState("orders");
   const [orders, setOrders] = useState([]);
 
   const loadOrders = () => {
     const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-
     if (savedOrders.length === 0) {
       setOrders([]);
     } else {
@@ -26,15 +24,10 @@ export default function OrdersPage() {
 
   useEffect(() => {
     loadOrders();
-
-    const handleOrderPlaced = () => {
-      loadOrders();
-    };
-
+    const handleOrderPlaced = () => { loadOrders(); };
     window.addEventListener("orderPlaced", handleOrderPlaced);
     window.addEventListener("orderRejected", handleOrderPlaced);
     window.addEventListener("orderDeleted", handleOrderPlaced);
-
     return () => {
       window.removeEventListener("orderPlaced", handleOrderPlaced);
       window.removeEventListener("orderRejected", handleOrderPlaced);
@@ -44,7 +37,6 @@ export default function OrdersPage() {
 
   const handleReorder = (order) => {
     const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-
     const newCartItems = order.items.map(item => ({
       id: Date.now() + Math.random(),
       name: item.name,
@@ -55,15 +47,11 @@ export default function OrdersPage() {
       note: item.note || "",
       image: "/website/coffee-placeholder.jpg"
     }));
-
     const updatedCart = [...existingCart];
-
     newCartItems.forEach(newItem => {
       const existingItemIndex = updatedCart.findIndex(
-        item => item.name === newItem.name &&
-          item.addon?.id === newItem.addon?.id
+        item => item.name === newItem.name && item.addon?.id === newItem.addon?.id
       );
-
       if (existingItemIndex > -1) {
         updatedCart[existingItemIndex].qty += newItem.qty;
         updatedCart[existingItemIndex].total = updatedCart[existingItemIndex].qty * updatedCart[existingItemIndex].price;
@@ -71,12 +59,11 @@ export default function OrdersPage() {
         updatedCart.push(newItem);
       }
     });
-
     localStorage.setItem('cart', JSON.stringify(updatedCart));
     window.dispatchEvent(new Event('cartUpdated'));
     alert(`${order.items.length} item(s) from ${order.id} added to cart!`);
   };
-  
+
   const handleDeleteOrder = (orderId) => {
     const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
     const updatedOrders = existingOrders.filter(order => order.id !== orderId);
@@ -90,125 +77,104 @@ export default function OrdersPage() {
   const rejectedOrders = orders.filter(order => order.status === "Rejected");
 
   return (
-    <div className="min-h-screen bg-white">
-     
-      <header className="px-3 py-2 flex items-center justify-between">
+    <div className="min-h-screen bg-[#F6F3EE] font-raleway">
+      <header className="bg-[#181D24] px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Image
-            src="/website/logo1.png"
-            alt="Cravory"
-            width={40}
-            height={40}
-            className="rounded shadow-md"
-          />
-          <span className="text-sm font-semibold text-gray-800">
-            Cravory
-          </span>
+          <Image src="/website/logo1.png" alt="Cravory" width={36} height={36} className="shadow-md" />
+          <span className="font-rufina text-[#CCA665] text-base tracking-widest uppercase">Cravory</span>
         </div>
-
-        <div className="flex items-center gap-3 text-xs font-medium">
-          <button className="bg-gray-100 px-2 py-2 rounded-lg flex items-center gap-2">
-            <MdOutlineTableBar size={18} />
+        <div className="flex items-center gap-2 text-xs">
+          <button className="border border-[#2E2A22] px-3 py-2 flex items-center gap-2 text-[#9E958B]">
+            <MdOutlineTableBar size={16} className="text-[#CCA665]" />
             <span>{orders.length}</span>
           </button>
-
-          <button className="bg-gray-100 px-3 py-2 rounded-lg flex items-center gap-2">
-            <FiUser size={15} />
-            <span className="flex sm:hidden">Group <br /> Order</span>
-            <span className="hidden sm:flex">Group Order</span>
+          <button className="border border-[#2E2A22] px-3 py-2 flex items-center gap-2 text-[#9E958B]">
+            <FiUser size={14} className="text-[#CCA665]" />
+            <span>Guest</span>
           </button>
         </div>
       </header>
 
-      <div className="border-b  border-gray-200">
-        <div className="max-w-5xl mx-auto px-6 flex justify-between">
+      <div className="border-b border-[#E8DDD0] bg-white">
+        <div className="flex">
           <button
             onClick={() => setActiveTab("orders")}
-            className={`relative flex items-center gap-2 py-4 ${activeTab === "orders" ? "text-orange-500" : "text-gray-500"}`}
+            className={`relative flex items-center gap-2 px-6 py-4 text-xs tracking-widest uppercase transition-colors ${
+              activeTab === "orders" ? "text-[#CCA665]" : "text-[#9E958B]"
+            }`}
           >
-            <IoRestaurantOutline />
+            <IoRestaurantOutline size={14} />
             Orders
-            <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-600">
+            <span className={`text-[10px] px-2 py-0.5 ${
+              activeTab === "orders" ? "bg-[#CCA665]/10 text-[#CCA665]" : "bg-[#F6F3EE] text-[#9E958B]"
+            }`}>
               {orders.length}
             </span>
             {activeTab === "orders" && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-orange-500" />
+              <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#CCA665]" />
             )}
           </button>
 
           <button
             onClick={() => setActiveTab("items")}
-            className={`relative flex items-center gap-2 py-4 ${activeTab === "items" ? "text-orange-500" : "text-gray-500"}`}
+            className={`relative flex items-center gap-2 px-6 py-4 text-xs tracking-widest uppercase transition-colors ${
+              activeTab === "items" ? "text-[#CCA665]" : "text-[#9E958B]"
+            }`}
           >
-            <IoListOutline />
+            <IoListOutline size={14} />
             Item List
-            <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200">
+            <span className={`text-[10px] px-2 py-0.5 ${
+              activeTab === "items" ? "bg-[#CCA665]/10 text-[#CCA665]" : "bg-[#F6F3EE] text-[#9E958B]"
+            }`}>
               {approvedOrders.length}
             </span>
             {activeTab === "items" && (
-              <span className="absolute bottom-0 left-0 w-full h-[2px] bg-orange-500" />
+              <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-[#CCA665]" />
             )}
           </button>
         </div>
       </div>
 
       {activeTab === "orders" && (
-        <main className="p-4 ">
+        <main className="p-4">
           {orders.length === 0 ? (
             <div className="flex flex-col items-center justify-center text-center py-20">
-              <Image
-                src="/website/dining.png"
-                alt="No Orders"
-                width={160}
-                height={160}
-              />
-              <h2 className="text-xl font-semibold mt-6">No Orders Yet</h2>
-              <p className="text-gray-500 mt-2">
-               You haven’t ordered anything yet. Place your first order.          
+              <Image src="/website/dining.png" alt="No Orders" width={140} height={140} />
+              <h2 className="font-rufina text-xl text-[#181D24] mt-6 tracking-wide">No Orders Yet</h2>
+              <p className="text-[#9E958B] text-sm mt-2 max-w-xs tracking-wide">
+                You haven&apos;t ordered anything yet. Place your first order.
               </p>
               <Link
                 href="/website/menu"
-                className="mt-6 bg-orange-500 text-white px-5 py-3 rounded-lg"
+                className="mt-6 border border-[#CCA665] text-[#CCA665] px-7 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#CCA665] hover:text-[#0E0A09] transition-colors duration-200"
               >
                 Start Ordering
               </Link>
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-6 pb-20">
               {approvedOrders.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold text-green-600 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-600 rounded-full"></span>
-                    Approved Orders ({approvedOrders.length})
-                  </h3>
-                  <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-3 pt-2">
+                    <span className="w-1.5 h-1.5 bg-[#4CAF50] rounded-full" />
+                    <p className="text-[10px] tracking-widest uppercase text-[#4CAF50]">Approved ({approvedOrders.length})</p>
+                  </div>
+                  <div className="space-y-3">
                     {approvedOrders.map((order, index) => (
-                      <OrderCard 
-                        key={`approved-${index}`} 
-                        order={order} 
-                        onReorder={handleReorder}
-                        onDelete={handleDeleteOrder}
-                        showReorder={true}
-                      />
+                      <OrderCard key={`approved-${index}`} order={order} onReorder={handleReorder} onDelete={handleDeleteOrder} showReorder={true} />
                     ))}
                   </div>
                 </div>
               )}
               {rejectedOrders.length > 0 && (
                 <div>
-                  <h3 className="text-lg font-semibold text-red-500 mb-3 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                    Rejected Orders ({rejectedOrders.length})
-                  </h3>
-                  <div className="space-y-4 mb-16">
+                  <div className="flex items-center gap-2 mb-3 pt-2">
+                    <span className="w-1.5 h-1.5 bg-red-400 rounded-full" />
+                    <p className="text-[10px] tracking-widest uppercase text-red-400">Rejected ({rejectedOrders.length})</p>
+                  </div>
+                  <div className="space-y-3">
                     {rejectedOrders.map((order, index) => (
-                      <OrderCard 
-                        key={`rejected-${index}`} 
-                        order={order} 
-                        onReorder={handleReorder}
-                        onDelete={handleDeleteOrder}
-                        showReorder={true}
-                      />
+                      <OrderCard key={`rejected-${index}`} order={order} onReorder={handleReorder} onDelete={handleDeleteOrder} showReorder={true} />
                     ))}
                   </div>
                 </div>
@@ -221,35 +187,27 @@ export default function OrdersPage() {
       {activeTab === "items" && (
         <>
           {approvedOrders.length === 0 ? (
-            <main className="flex flex-col items-center justify-center text-center py-20">
-              <Image
-                src="/website/dining.png"
-                alt="dining"
-                width={180}
-                height={180}
-                priority
-              />
-              <h2 className="mt-6 text-lg font-semibold text-gray-900">
-                No Orders Yet
-              </h2>
-              <p className="mt-2 text-sm text-gray-500 max-w-sm">
-                You haven't ordered anything yet. Place your first order.
+            <main className="flex flex-col items-center justify-center text-center py-20 px-10">
+              <Image src="/website/dining.png" alt="dining" width={140} height={140} priority />
+              <h2 className="font-rufina text-xl text-[#181D24] mt-6 tracking-wide">No Orders Yet</h2>
+              <p className="text-sm text-[#9E958B] mt-2 max-w-sm tracking-wide">
+                You haven&apos;t ordered anything yet. Place your first order.
               </p>
               <Link
                 href="/website/menu"
-                className="mt-6 inline-flex items-center justify-center rounded-lg bg-orange-500 px-4 py-2 text-white font-medium hover:bg-orange-600 transition"
+                className="mt-6 border border-[#CCA665] text-[#CCA665] px-7 py-3 text-xs tracking-[0.2em] uppercase hover:bg-[#CCA665] hover:text-[#0E0A09] transition-colors duration-200"
               >
                 Start Ordering
               </Link>
             </main>
           ) : (
-            <div className="space-y-6 px-4 py-6 mb-13">
+            <div className="space-y-6 px-4 py-4 pb-20">
               <div>
-                <h3 className="text-lg font-semibold text-green-600 mb-3 flex items-center gap-2">
-                  <span className="w-2 h-2 bg-green-600 rounded-full"></span>
-                  Approved Orders ({approvedOrders.length})
-                </h3>
-                <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="w-1.5 h-1.5 bg-[#4CAF50] rounded-full" />
+                  <p className="text-[10px] tracking-widest uppercase text-[#4CAF50]">Approved ({approvedOrders.length})</p>
+                </div>
+                <div className="space-y-3">
                   {approvedOrders.map((order, index) => (
                     <OrderCard
                       key={`approved-${index}`}
@@ -272,70 +230,66 @@ export default function OrdersPage() {
 
 function OrderCard({ order, onReorder, onDelete, showReorder = true, showDelete = false }) {
   return (
-    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-      
-      <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200">
-        <div className="flex items-center gap-3">
-          <span className="font-medium">{order.id}</span>
-          <span className={`text-xs px-2 py-1 rounded ${order.statusColor}`}>
+    <div className="bg-white border border-[#E8DDD0] overflow-hidden">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-[#E8DDD0] bg-[#FDFAF6]">
+        <div className="flex items-center gap-3 flex-wrap">
+          <span className="font-rufina text-[#181D24] tracking-wide">{order.id}</span>
+          <span className={`text-[10px] tracking-widest uppercase px-2 py-0.5 ${order.statusColor}`}>
             {order.status}
           </span>
           {order.customerName && (
-            <span className="text-xs text-gray-500">
-              {order.customerName}
-            </span>
+            <span className="text-[11px] text-[#9E958B] tracking-wide">{order.customerName}</span>
           )}
         </div>
-        <span className="text-xs text-gray-500">{order.time}</span>
+        <span className="text-[11px] text-[#BDA070] tracking-wide shrink-0">{order.time}</span>
       </div>
 
       <div className="px-4 py-3 space-y-2">
         {order.items.map((item, i) => (
           <div key={i} className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <div className={`w-4 h-4 border border-gray-200 flex items-center justify-center ${
-                order.status === "Approved" ? "border-green-600" : "border-red-500"
+            <div className="flex items-center gap-2.5">
+              <div className={`w-3.5 h-3.5 border flex items-center justify-center shrink-0 ${
+                order.status === "Approved" ? "border-[#4CAF50]" : "border-red-400"
               }`}>
-                <div className={`w-2 h-2 ${
-                  order.status === "Approved" ? "bg-green-600" : "bg-red-500"
-                }`}></div>
+                <div className={`w-1.5 h-1.5 rounded-full ${
+                  order.status === "Approved" ? "bg-[#4CAF50]" : "bg-red-400"
+                }`} />
               </div>
-              <span className="text-sm">{item.name}</span>
+              <span className="text-sm text-[#181D24]">{item.name}</span>
               {item.addon && (
-                <span className="text-xs text-gray-500">+ {item.addon.name}</span>
+                <span className="text-[11px] text-[#BDA070]">+ {item.addon.name}</span>
               )}
             </div>
-            <div className="flex items-center gap-6 text-sm">
-              <span className="text-gray-500">×{item.qty}</span>
-              <span className="font-medium">₹{item.price}.00</span>
+            <div className="flex items-center gap-5 text-sm shrink-0">
+              <span className="text-[#9E958B]">×{item.qty}</span>
+              <span className="text-[#CCA665] font-medium min-w-12 text-right">₹{item.price}</span>
             </div>
           </div>
         ))}
 
         {order.totalAmount && (
-          <div className="flex justify-end pt-2 border-t border-gray-200 mt-2">
-            <span className="text-sm font-semibold">Total: ₹{order.totalAmount}.00</span>
+          <div className="flex justify-end pt-2 border-t border-[#E8DDD0] mt-2">
+            <span className="text-sm font-semibold text-[#CCA665] tracking-wide">Total: ₹{order.totalAmount}</span>
           </div>
         )}
       </div>
 
-      <div className="flex justify-center gap-4 py-2 border-t border-gray-200 bg-gray-50">
+      <div className="flex justify-center gap-4 py-2.5 border-t border-[#E8DDD0] bg-[#FDFAF6]">
         {showReorder && (
           <button
             onClick={() => onReorder(order)}
-            className="flex items-center gap-2 px-4 py-2 text-orange-500 font-medium  rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-1.5 text-[#CCA665] text-xs tracking-widest uppercase border border-[#CCA665]/40 hover:bg-[#CCA665]/5 transition-colors"
           >
-            <RefreshCcw size={16} />
+            <RefreshCcw size={12} />
             Reorder
           </button>
         )}
-        
         {showDelete && (
           <button
             onClick={() => onDelete(order.id)}
-            className="flex items-center gap-2 px-4 py-2 text-red-400 font-medium  rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-1.5 text-red-400 text-xs tracking-widest uppercase border border-red-200 hover:bg-red-50 transition-colors"
           >
-            <span className="text-lg"><MdCancel /></span>
+            <MdCancel size={14} />
             Delete
           </button>
         )}

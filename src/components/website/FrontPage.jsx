@@ -5,44 +5,69 @@ import Link from "next/link";
 
 export default function CravoryCard() {
     return (
-        <div
-            className="min-h-screen px-3 flex items-center justify-center bg-[#fff8f4] relative overflow-hidden"
-            style={{
-                backgroundImage: "url('/website/background.png')",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                backgroundSize: "600px",
-            }}
-        >
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-10 right-20 w-40 h-40 border border-orange-200 rounded-full opacity-40" />
-                <div className="absolute bottom-20 left-16 w-32 h-32 border border-orange-200 rounded-full opacity-40" />
-                <div className="absolute top-1/2 left-10 grid grid-cols-5 gap-2 opacity-40">
-                    {Array.from({ length: 20 }).map((_, i) => (
-                        <span key={i} className="w-1.5 h-1.5 bg-orange-200 rounded-full" />
-                    ))}
+        <div className="min-h-screen flex items-center justify-center bg-[#0E0A09] relative overflow-hidden font-raleway">
+
+            {/* Concentric decorative rings */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-[#CCA665]/[0.08] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[#CCA665]/[0.10] pointer-events-none" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full border border-[#CCA665]/[0.12] pointer-events-none" />
+
+            {/* Corner ornaments */}
+            <div className="absolute top-8 left-8 w-10 h-10 border-t border-l border-[#CCA665]/30 pointer-events-none" />
+            <div className="absolute top-8 right-8 w-10 h-10 border-t border-r border-[#CCA665]/30 pointer-events-none" />
+            <div className="absolute bottom-24 left-8 w-10 h-10 border-b border-l border-[#CCA665]/30 pointer-events-none" />
+            <div className="absolute bottom-24 right-8 w-10 h-10 border-b border-r border-[#CCA665]/30 pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col items-center text-center px-8">
+
+                {/* Logo */}
+                <Image
+                    src="/website/logo1.png"
+                    alt="Cravory"
+                    width={64}
+                    height={64}
+                    className="rounded-sm opacity-75 mb-8"
+                />
+
+                {/* Top ornamental rule */}
+                <div className="flex items-center gap-4 mb-7">
+                    <div className="w-14 h-px bg-gradient-to-r from-transparent to-[#CCA665]" />
+                    <div className="w-1.5 h-1.5 rotate-45 bg-[#CCA665]" />
+                    <div className="w-14 h-px bg-gradient-to-l from-transparent to-[#CCA665]" />
                 </div>
-            </div>
-            <div className="relative z-10 bg-white rounded-xl shadow-2xl px-10 py-8 w-[320px] text-center">
-                <div className="flex justify-center mb-2">
-                    <Image
-                        src="/website/logo1.png"
-                        alt="Cravory"
-                        width={100}
-                        height={80}
-                    />
+
+                {/* Brand wordmark */}
+                <h1
+                    className="font-rufina text-5xl sm:text-6xl font-normal tracking-[0.22em] text-transparent bg-clip-text mb-3"
+                    style={{ backgroundImage: 'linear-gradient(135deg, #EAC25E 0%, #CCA665 55%, #C89B5A 100%)' }}
+                >
+                    CRAVORY
+                </h1>
+
+                {/* Tagline */}
+                <p className="text-[#9E958B] text-[11px] tracking-[0.35em] uppercase mb-7">
+                    Fine Dining &nbsp;·&nbsp; Exquisite Flavours
+                </p>
+
+                {/* Bottom ornamental rule */}
+                <div className="flex items-center gap-4 mb-11">
+                    <div className="w-14 h-px bg-gradient-to-r from-transparent to-[#CCA665]" />
+                    <div className="w-1.5 h-1.5 rotate-45 bg-[#CCA665]" />
+                    <div className="w-14 h-px bg-gradient-to-l from-transparent to-[#CCA665]" />
                 </div>
-                <h2 className="text-xl font-medium text-gray-800 mb-4">
-                    Cravory
-                </h2>
+
+                {/* Primary CTA */}
                 <Link
                     href="/website/menu"
-                    className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-medium transition"
+                    className="inline-flex items-center gap-3 border border-[#CCA665]/60 text-[#CCA665] px-10 py-3.5 text-[11px] tracking-[0.3em] uppercase hover:bg-[#CCA665] hover:text-[#0E0A09] hover:border-[#CCA665] transition-all duration-300"
                 >
-                    Order Now
-                    <span className="text-lg">→</span>
+                    View Menu
                 </Link>
 
+                {/* Footer caption */}
+                <p className="text-[#3a3228] text-[10px] tracking-[0.3em] uppercase mt-12">
+                    In-Restaurant Ordering
+                </p>
             </div>
         </div>
     );

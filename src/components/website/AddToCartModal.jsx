@@ -14,19 +14,15 @@ export default function AddToCartModal({ onClose, item }) {
   const [selectedAddon, setSelectedAddon] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    setTimeout(() => setIsOpen(true), 10);
-  }, []);
+  useEffect(() => { setTimeout(() => setIsOpen(true), 10); }, []);
 
   const basePrice = item.price || 0;
-  const addons = [
-    { id: 1, name: "Vanilla Syrup", price: 39 },
-  ];
+  const addons = [{ id: 1, name: "Vanilla Syrup", price: 39 }];
 
   const filterIcons = {
-    veg: <FaLeaf className="text-green-600" size={14} />,
-    nonVeg: <GiChickenLeg className="text-red-600" size={14} />,
-    egg: <IoEgg className="text-yellow-500" size={14} />,
+    veg: <FaLeaf className="text-green-600" size={11} />,
+    nonVeg: <GiChickenLeg className="text-red-700" size={11} />,
+    egg: <IoEgg className="text-yellow-500" size={11} />,
   };
 
   const selectedAddonPrice = selectedAddon
@@ -45,143 +41,128 @@ export default function AddToCartModal({ onClose, item }) {
       id: item.id || Date.now(),
       name: item.name,
       price: basePrice,
-      qty: qty,
+      qty,
       addon: selectedAddon ? addons.find(a => a.id === selectedAddon) : null,
-      note: note,
-      total: total,
-      image: item.image
+      note,
+      total,
+      image: item.image,
     };
-
-    const existingCart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    const existingItemIndex = existingCart.findIndex(ci =>
-      ci.id === item.id &&
-      ci.addon?.id === selectedAddon &&
-      ci.note === note
+    const existingCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const existingItemIndex = existingCart.findIndex(
+      ci => ci.id === item.id && ci.addon?.id === selectedAddon && ci.note === note
     );
-
     if (existingItemIndex > -1) {
       existingCart[existingItemIndex].qty += qty;
-      existingCart[existingItemIndex].total = existingCart[existingItemIndex].qty * (basePrice + (selectedAddonPrice || 0));
+      existingCart[existingItemIndex].total =
+        existingCart[existingItemIndex].qty * (basePrice + (selectedAddonPrice || 0));
     } else {
       existingCart.push(cartItem);
     }
-
-    localStorage.setItem('cart', JSON.stringify(existingCart));
-    window.dispatchEvent(new Event('cartUpdated'));
-
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+    window.dispatchEvent(new Event("cartUpdated"));
     handleClose();
   };
 
   useEffect(() => {
-    const handleEsc = (e) => {
-      if (e.key === "Escape") handleClose();
-    };
+    const handleEsc = (e) => { if (e.key === "Escape") handleClose(); };
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, [handleClose]);
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = "unset"; };
   }, []);
 
   return (
     <>
       <div
         onClick={handleClose}
-        className={`fixed inset-0 z-40 transition-opacity duration-300 ${isOpen ? 'bg-black/40' : 'bg-black/0'
-          }`}
+        className={`fixed inset-0 z-40 transition-opacity duration-300 ${isOpen ? "bg-black/50" : "bg-black/0"}`}
       />
-      <div className="fixed bottom-0 left-0 right-0 z-50">
+
+      <div className="fixed bottom-0 left-0 right-0 z-50 font-raleway">
         <div
-          className={`relative bg-white rounded-t-2xl shadow-lg max-h-[85vh] flex flex-col transition-transform duration-300 ease-out ${isOpen ? "translate-y-0" : "translate-y-full"
-            }`}
+          className={`relative bg-white max-h-[88vh] flex flex-col transition-transform duration-300 ease-out ${
+            isOpen ? "translate-y-0" : "translate-y-full"
+          }`}
         >
-          <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-30">
+          <div className="absolute -top-5 left-1/2 -translate-x-1/2 z-30">
             <button
               onClick={handleClose}
-              className="p-3 bg-black/70 text-white rounded-full shadow-lg backdrop-blur"
+              className="p-2.5 bg-[#181D24] text-[#BDA070] rounded-full shadow-lg hover:bg-[#0E0A09] transition-colors"
             >
-              <X size={20} />
+              <X size={16} />
             </button>
           </div>
 
-          <div className="p-4 border-b border-gray-200 flex justify-between items-start pt-8">
-            <div className="flex gap-4 flex-1">
-              <div className="relative w-14 h-14">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  fill
-                  className="rounded-lg object-cover"
-                />
+          {/* Item header */}
+          <div className="p-4 pt-8 border-b border-[#E8DDD0] flex justify-between items-start gap-4">
+            <div className="flex gap-3 flex-1 min-w-0">
+              <div className="relative w-16 h-16 shrink-0">
+                <Image src={item.image} alt={item.name} fill className="object-cover" />
               </div>
-
-              <div className="flex-1">
-                <div className="flex gap-2 items-center">
-                  <div className="w-5 h-5 flex items-center justify-center border border-gray-200 rounded-sm">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-4 h-4 flex items-center justify-center border border-[#E8DDD0]">
                     {filterIcons[item.filters] || filterIcons.veg}
                   </div>
-                  <h3 className="font-semibold text-lg">{item.name}</h3>
+                  <h3 className="font-rufina text-base text-[#181D24] tracking-wide truncate">{item.name}</h3>
                 </div>
-
-                <p className="text-sm text-gray-500">{item.description}</p>
-                <p className="font-semibold mt-1">₹ {basePrice}</p>
+                {item.description && (
+                  <p className="text-[11px] text-[#9E958B] leading-relaxed line-clamp-2">{item.description}</p>
+                )}
+                <p className="text-[#CCA665] font-semibold text-sm mt-1 tracking-wide">₹ {basePrice}.00</p>
               </div>
             </div>
 
-            <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-              <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-2 text-orange-500">
-                <FiMinus />
+            <div className="flex items-center border border-[#E8DDD0] shrink-0">
+              <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-2 text-[#CCA665] hover:bg-[#F6F3EE] transition-colors">
+                <FiMinus size={14} />
               </button>
-              <span className="px-4">{qty}</span>
-              <button onClick={() => setQty(qty + 1)} className="px-3 py-2 text-orange-500">
-                <FiPlus />
+              <span className="px-3 text-sm font-medium text-[#181D24] min-w-8 text-center">{qty}</span>
+              <button onClick={() => setQty(qty + 1)} className="px-3 py-2 text-[#CCA665] hover:bg-[#F6F3EE] transition-colors">
+                <FiPlus size={14} />
               </button>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          {/* Body */}
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[#FDFAF6]">
             <div>
-              <p className="text-sm font-medium mb-1">Special Instructions</p>
+              <p className="text-[10px] font-medium text-[#5A5040] mb-2 tracking-widest uppercase">Special Instructions</p>
               <textarea
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                placeholder="Enter note..."
-                className="w-full border border-gray-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-orange-400"
+                placeholder="Any special requests..."
+                rows={2}
+                className="w-full border border-[#E8DDD0] bg-white px-3 py-2.5 text-sm text-[#181D24] placeholder-[#BDA070] focus:outline-none focus:border-[#CCA665] focus:ring-1 focus:ring-[#CCA665]/20 resize-none transition-all"
               />
             </div>
 
             {addons.length > 0 && (
               <AddonGroup
-                title={`Add On (${selectedAddon ? "1" : "0"}/1)`}
-                subtitle="Select up to 1 add-on"
+                title={`Add-ons (${selectedAddon ? "1" : "0"}/1)`}
+                subtitle="Select up to 1"
                 items={addons}
                 selected={selectedAddon}
-                onSelect={(id) =>
-                  setSelectedAddon(selectedAddon === id ? null : id)
-                }
+                onSelect={(id) => setSelectedAddon(selectedAddon === id ? null : id)}
               />
             )}
           </div>
 
-          <div className="sticky bottom-0 bg-orange-500 p-4">
-            <div className="flex justify-between items-center">
-              <div className="text-white">
-                <p className="text-sm">Total</p>
-                <p className="font-bold">₹ {total}</p>
-              </div>
-
-              <button
-                onClick={handleAddToCart}
-                className="bg-white text-orange-600 px-6 py-2 rounded-lg font-medium"
-              >
-                Add to Cart
-              </button>
+          {/* Footer */}
+          <div className="bg-[#181D24] px-4 py-4 flex justify-between items-center">
+            <div>
+              <p className="text-[10px] text-[#9E958B] tracking-widest uppercase">Total</p>
+              <p className="text-[#CCA665] font-semibold text-lg tracking-wide">₹ {total}.00</p>
             </div>
+            <button
+              onClick={handleAddToCart}
+              className="bg-[#CCA665] hover:bg-[#b38e45] text-[#0E0A09] px-7 py-2.5 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-200"
+            >
+              Add to Order
+            </button>
           </div>
         </div>
       </div>
@@ -191,47 +172,32 @@ export default function AddToCartModal({ onClose, item }) {
 
 function AddonGroup({ title, subtitle, items, selected, onSelect }) {
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden">
-      <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200 bg-gray-50">
+    <div className="border border-[#E8DDD0] bg-white overflow-hidden">
+      <div className="flex justify-between items-center px-4 py-3 border-b border-[#E8DDD0] bg-[#F6F3EE]">
         <div>
-          <p className="font-medium text-sm text-gray-900">{title}</p>
-          <p className="text-xs text-gray-500 mt-1">{subtitle}</p>
+          <p className="text-xs font-semibold text-[#181D24] tracking-wide">{title}</p>
+          <p className="text-[10px] text-[#9E958B] mt-0.5">{subtitle}</p>
         </div>
-        <div className="text-xs text-gray-500">
-          {selected ? '1 selected' : '0 selected'}
-        </div>
+        <span className="text-[10px] text-[#BDA070]">{selected ? "1 selected" : "0 selected"}</span>
       </div>
-
-      <div className="divide-y">
+      <div className="divide-y divide-[#E8DDD0]">
         {items.map((item) => (
           <label
             key={item.id}
-            className="flex justify-between items-center px-4 py-3 cursor-pointer hover:bg-gray-50 transition-colors"
+            className="flex justify-between items-center px-4 py-3 cursor-pointer hover:bg-[#FDFAF6] transition-colors"
           >
             <div className="flex items-center gap-3">
               <div className="relative">
-                <input
-                  type="checkbox"
-                  checked={selected === item.id}
-                  onChange={() => onSelect(item.id)}
-                  className="peer sr-only"
-                />
-                <div className="w-5 h-5 border-2 rounded flex items-center justify-center
-                                border-gray-300 peer-checked:border-orange-500 peer-checked:bg-orange-50
-                                transition-colors">
-                  {selected === item.id && (
-                    <span className="text-orange-500 font-bold text-sm">✓</span>
-                  )}
+                <input type="checkbox" checked={selected === item.id} onChange={() => onSelect(item.id)} className="peer sr-only" />
+                <div className={`w-4 h-4 border flex items-center justify-center transition-colors ${
+                  selected === item.id ? "border-[#CCA665] bg-[#CCA665]" : "border-[#E8DDD0]"
+                }`}>
+                  {selected === item.id && <span className="text-white text-[10px] font-bold leading-none">✓</span>}
                 </div>
               </div>
-              <div>
-                <span className="text-sm text-gray-900">{item.name}</span>
-              </div>
+              <span className="text-sm text-[#181D24]">{item.name}</span>
             </div>
-
-            <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-gray-900">+₹ {item.price}.00</span>
-            </div>
+            <span className="text-sm text-[#CCA665] font-medium">+₹ {item.price}.00</span>
           </label>
         ))}
       </div>

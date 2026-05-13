@@ -1,4 +1,4 @@
-import CravoryCard from "../components/Website/FrontPage";
+import CravoryCard from "../components/website/FrontPage";
 
 const page = () => {
   return (

@@ -1,4 +1,4 @@
-import OrdersPage from "../../../components/Website/Orders/Orderspage"
+import OrdersPage from "../../../components/website/orders/Orderspage"
 
 
 const orders = () => {

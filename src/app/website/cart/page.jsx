@@ -1,4 +1,4 @@
-import AddToCartModal from '@//components/Website/Cart'
+import AddToCartModal from '@/components/website/AddToCartModal'
 import React from 'react'
 
 export const page = () => {

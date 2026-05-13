@@ -1,5 +1,5 @@
 import React from 'react'
-import MenuPage from '../../../components/Website/MenuPage'
+import MenuPage from '../../../components/website/MenuPage'
 
 const page = () => {
   return (

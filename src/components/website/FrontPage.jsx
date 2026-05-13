@@ -7,12 +7,7 @@ export default function AurevaCard() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#0E0A09] relative overflow-hidden font-raleway">
 
-            {/* Concentric decorative rings */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full border border-[#CCA665]/[0.08] pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full border border-[#CCA665]/[0.10] pointer-events-none" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] rounded-full border border-[#CCA665]/[0.12] pointer-events-none" />
-
-            {/* Corner ornaments */}
+{/* Corner ornaments */}
             <div className="absolute top-8 left-8 w-10 h-10 border-t border-l border-[#CCA665]/30 pointer-events-none" />
             <div className="absolute top-8 right-8 w-10 h-10 border-t border-r border-[#CCA665]/30 pointer-events-none" />
             <div className="absolute bottom-24 left-8 w-10 h-10 border-b border-l border-[#CCA665]/30 pointer-events-none" />
@@ -31,9 +26,9 @@ export default function AurevaCard() {
 
                 {/* Top ornamental rule */}
                 <div className="flex items-center gap-4 mb-7">
-                    <div className="w-14 h-px bg-gradient-to-r from-transparent to-[#CCA665]" />
+                    <div className="w-14 h-px bg-linear-to-r from-transparent to-[#CCA665]" />
                     <div className="w-1.5 h-1.5 rotate-45 bg-[#CCA665]" />
-                    <div className="w-14 h-px bg-gradient-to-l from-transparent to-[#CCA665]" />
+                    <div className="w-14 h-px bg-linear-to-l from-transparent to-[#CCA665]" />
                 </div>
 
                 {/* Brand wordmark */}
@@ -51,9 +46,9 @@ export default function AurevaCard() {
 
                 {/* Bottom ornamental rule */}
                 <div className="flex items-center gap-4 mb-11">
-                    <div className="w-14 h-px bg-gradient-to-r from-transparent to-[#CCA665]" />
+                    <div className="w-14 h-px bg-linear-to-r from-transparent to-[#CCA665]" />
                     <div className="w-1.5 h-1.5 rotate-45 bg-[#CCA665]" />
-                    <div className="w-14 h-px bg-gradient-to-l from-transparent to-[#CCA665]" />
+                    <div className="w-14 h-px bg-linear-to-l from-transparent to-[#CCA665]" />
                 </div>
 
                 {/* Primary CTA */}

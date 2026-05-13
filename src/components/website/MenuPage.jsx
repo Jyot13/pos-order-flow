@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import Menuproducts from "../data/Menuproducts";
+import Menuproducts from "../../data/Menuproducts";
 import { MdOutlineTableBar } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
-import AddToCartModal, { CartFloatingButton } from "./Cart";
+import AddToCartModal from "./AddToCartModal";
 import { Check, ChevronDown } from "lucide-react";
 import { FaCircle } from "react-icons/fa";
 import { IoTriangleSharp } from "react-icons/io5";
@@ -570,8 +570,6 @@ export default function MenuPage() {
           </motion.div>
         )}
       </div>
-
-      <CartFloatingButton />
 
       {selectedItem && (
         <AddToCartModal

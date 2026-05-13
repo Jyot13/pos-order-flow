@@ -80,8 +80,8 @@ export default function OrdersPage() {
     <div className="min-h-screen bg-[#F6F3EE] font-raleway">
       <header className="bg-[#181D24] px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Image src="/website/logo1.png" alt="Cravory" width={36} height={36} className="shadow-md" />
-          <span className="font-rufina text-[#CCA665] text-base tracking-widest uppercase">Cravory</span>
+          <Image src="/website/aureva-logo.png" alt="Aureva" width={36} height={36} className="shadow-md" />
+          <span className="font-rufina text-[#CCA665] text-base tracking-widest uppercase">Aureva</span>
         </div>
         <div className="flex items-center gap-2 text-xs">
           <button className="border border-[#2E2A22] px-3 py-2 flex items-center gap-2 text-[#9E958B]">

@@ -1,9 +1,8 @@
-import CravoryCard from "../components/website/FrontPage";
+import AurevaCard from "../components/website/FrontPage";
 
 const page = () => {
   return (
-   <CravoryCard/>
-   
+   <AurevaCard/>
   )
 }
 

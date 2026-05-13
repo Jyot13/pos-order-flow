@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function CravoryCard() {
+export default function AurevaCard() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#0E0A09] relative overflow-hidden font-raleway">
 
@@ -22,8 +22,8 @@ export default function CravoryCard() {
 
                 {/* Logo */}
                 <Image
-                    src="/website/logo1.png"
-                    alt="Cravory"
+                    src="/website/aureva-logo.png"
+                    alt="Aureva"
                     width={64}
                     height={64}
                     className="rounded-sm opacity-75 mb-8"
@@ -41,7 +41,7 @@ export default function CravoryCard() {
                     className="font-rufina text-5xl sm:text-6xl font-normal tracking-[0.22em] text-transparent bg-clip-text mb-3"
                     style={{ backgroundImage: 'linear-gradient(135deg, #EAC25E 0%, #CCA665 55%, #C89B5A 100%)' }}
                 >
-                    CRAVORY
+                    AUREVA
                 </h1>
 
                 {/* Tagline */}

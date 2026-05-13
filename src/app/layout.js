@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Cravory",
-  description: "Order food at Cravory",
+  title: "Aureva",
+  description: "Order food at Aureva",
 };
 
 export default function RootLayout({ children }) {

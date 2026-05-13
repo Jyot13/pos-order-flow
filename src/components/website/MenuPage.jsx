@@ -192,14 +192,14 @@ export default function MenuPage() {
       <header className="bg-white px-4 py-3 flex items-center justify-between border-b border-[#E8DDD0]">
         <div className="flex items-center gap-3">
           <Image
-            src="/website/logo1.png"
-            alt="Cravory"
+            src="/website/aureva-logo.png"
+            alt="Aureva"
             width={36}
             height={36}
             className="rounded-sm"
           />
           <span className="font-rufina text-base tracking-wider text-[#181D24]">
-            Cravory
+            Aureva
           </span>
         </div>
 

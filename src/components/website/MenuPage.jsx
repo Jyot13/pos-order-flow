@@ -197,17 +197,22 @@ export default function MenuPage() {
             <Image
               src="/website/aureva-logo.png"
               alt="Aureva"
-              width={36}
-              height={36}
+              width={52}
+              height={52}
               className="rounded-sm"
             />
           </div>
 
           <div className="flex items-center gap-2 text-xs">
-            <button className="flex items-center gap-1.5 bg-[#F6F3EE] border border-[#E8DDD0] px-3 py-1.5 text-[#5A5040]">
-              <MdOutlineTableBar size={15} className="text-[#BDA070]" />
-              <span className="font-medium tracking-wide">9</span>
-            </button>
+            <div className="relative group">
+              <button className="flex items-center gap-1.5 bg-[#F6F3EE] border border-[#E8DDD0] px-3 py-1.5 text-[#5A5040]">
+                <MdOutlineTableBar size={15} className="text-[#BDA070]" />
+                <span className="font-medium tracking-wide">5</span>
+              </button>
+              <div className="absolute right-0 top-full mt-1.5 bg-[#181D24] border border-[#2E2A22] text-[#CCA665] text-[10px] tracking-widest uppercase px-2.5 py-1.5 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+                Table 5
+              </div>
+            </div>
             <button className="flex items-center gap-1.5 bg-[#F6F3EE] border border-[#E8DDD0] px-3 py-1.5 text-[#5A5040]">
               <FiUser size={13} className="text-[#BDA070]" />
               <span className="font-medium tracking-wide hidden sm:inline">Group Order</span>

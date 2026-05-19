@@ -80,13 +80,18 @@ export default function OrdersPage() {
     <div className="min-h-screen bg-[#F6F3EE] font-raleway">
       <header className="bg-[#181D24] px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Image src="/website/aureva-logo.png" alt="Aureva" width={36} height={36} className="shadow-md" />
+          <Image src="/website/aureva-logo.png" alt="Aureva" width={52} height={52} className="shadow-md" />
         </div>
         <div className="flex items-center gap-2 text-xs">
-          <button className="border border-[#2E2A22] px-3 py-2 flex items-center gap-2 text-[#9E958B]">
-            <MdOutlineTableBar size={16} className="text-[#CCA665]" />
-            <span>{orders.length}</span>
-          </button>
+          <div className="relative group">
+            <button className="border border-[#2E2A22] px-3 py-2 flex items-center gap-2 text-[#9E958B]">
+              <MdOutlineTableBar size={16} className="text-[#CCA665]" />
+              <span>5</span>
+            </button>
+            <div className="absolute right-0 top-full mt-1.5 bg-[#181D24] border border-[#2E2A22] text-[#CCA665] text-[10px] tracking-widest uppercase px-2.5 py-1.5 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50">
+              Table 5
+            </div>
+          </div>
           <button className="border border-[#2E2A22] px-3 py-2 flex items-center gap-2 text-[#9E958B]">
             <FiUser size={14} className="text-[#CCA665]" />
             <span>Guest</span>

@@ -193,7 +193,7 @@ export default function MenuPage() {
 
         {/* Header */}
         <header className="px-4 py-3 flex items-center justify-between border-b border-[#E8DDD0]">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center">
             <Image
               src="/website/aureva-logo.png"
               alt="Aureva"
@@ -201,9 +201,6 @@ export default function MenuPage() {
               height={36}
               className="rounded-sm"
             />
-            <span className="font-rufina text-base tracking-wider text-[#181D24]">
-              Aureva
-            </span>
           </div>
 
           <div className="flex items-center gap-2 text-xs">

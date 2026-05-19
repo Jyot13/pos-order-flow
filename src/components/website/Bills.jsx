@@ -33,9 +33,8 @@ export default function OrdersPage() {
   return (
     <div className="min-h-screen bg-[#F6F3EE] font-raleway">
       <header className="bg-[#0E0A09] px-5 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <Image src="/website/aureva-logo.png" alt="Aureva" width={36} height={36} className="shadow-md" priority />
-          <span className="font-rufina text-[#CCA665] text-base tracking-widest uppercase">Aureva</span>
+        <div className="flex items-center">
+          <Image src="/website/aureva-logo.png" alt="Aureva" width={52} height={52} className="shadow-md" priority />
         </div>
         <div className="text-right">
           <p className="text-[10px] text-[#9E958B] tracking-widest uppercase">Bills</p>

@@ -5,16 +5,13 @@ import { X } from "lucide-react";
 
 export default function OrderFormModal({ onClose, onOrderPlaced }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [formData, setFormData] = useState({ name: "", mobile: "", otp: "" });
-  const [otpSent, setOtpSent] = useState(false);
-  const [generatedOtp, setGeneratedOtp] = useState("");
-  const [isSendingOtp, setIsSendingOtp] = useState(false);
+  const [formData, setFormData] = useState({ name: "", mobile: "" });
 
   useEffect(() => { setTimeout(() => setIsOpen(true), 10); }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if ((name === "mobile" || name === "otp") && !/^\d*$/.test(value)) return;
+    if (name === "mobile" && !/^\d*$/.test(value)) return;
     setFormData({ ...formData, [name]: value });
   };
 
@@ -22,20 +19,6 @@ export default function OrderFormModal({ onClose, onOrderPlaced }) {
     if (typeof window === "undefined") return 0;
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     return cart.reduce((sum, item) => sum + item.total, 0);
-  };
-
-  const handleSendOtp = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.mobile) { alert("Please fill all fields"); return; }
-    if (formData.mobile.length !== 10) { alert("Enter valid mobile number"); return; }
-    setIsSendingOtp(true);
-    const otp = Math.floor(1000 + Math.random() * 9000).toString();
-    setTimeout(() => {
-      setGeneratedOtp(otp);
-      setOtpSent(true);
-      setIsSendingOtp(false);
-      alert(`OTP: ${otp}`);
-    }, 1000);
   };
 
   useEffect(() => {
@@ -67,16 +50,12 @@ export default function OrderFormModal({ onClose, onOrderPlaced }) {
     return () => window.removeEventListener("orderRejected", handleRejection);
   }, [formData.name, formData.mobile]);
 
-  const handleVerifyOtp = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.otp === generatedOtp) { onOrderPlaced && onOrderPlaced(); handleClose(); }
-    else { alert("Invalid OTP"); }
-  };
-
-  const handleResendOtp = () => {
-    const otp = Math.floor(1000 + Math.random() * 9000).toString();
-    setGeneratedOtp(otp);
-    alert(`Resent OTP: ${otp}`);
+    if (!formData.name || !formData.mobile) { alert("Please fill all fields"); return; }
+    if (formData.mobile.length !== 10) { alert("Enter valid mobile number"); return; }
+    onOrderPlaced && onOrderPlaced();
+    handleClose();
   };
 
   const handleClose = () => {
@@ -91,7 +70,7 @@ export default function OrderFormModal({ onClose, onOrderPlaced }) {
     return () => { window.removeEventListener("keydown", esc); document.body.style.overflow = "unset"; };
   }, []);
 
-  const inputClass = "w-full border border-[#E8DDD0] bg-[#FDFAF6] px-4 py-3 text-sm text-[#181D24] placeholder-[#BDA070] focus:outline-none focus:border-[#CCA665] focus:ring-1 focus:ring-[#CCA665]/20 transition-all";
+  const inputClass = "w-full border border-[#E8DDD0] bg-[#FDFAF6] px-4 py-3 text-sm text-[#181D24] placeholder-[#BDA070] focus:outline-none focus:border-[#CCA665] transition-all";
 
   return (
     <>
@@ -115,16 +94,13 @@ export default function OrderFormModal({ onClose, onOrderPlaced }) {
             </button>
           </div>
 
-          {/* Header */}
           <div className="pt-6 px-5 pb-3 border-b border-[#E8DDD0]">
             <h2 className="font-rufina text-lg text-[#181D24] tracking-wide">Guest Details</h2>
-            <p className="text-[11px] text-[#9E958B] mt-0.5 tracking-wide">Confirm your identity to place the order</p>
+            <p className="text-[11px] text-[#9E958B] mt-0.5 tracking-wide">Enter your details to place the order</p>
           </div>
 
-          {/* Form */}
           <div className="flex-1 overflow-y-auto bg-[#FDFAF6]">
-            <form onSubmit={otpSent ? handleVerifyOtp : handleSendOtp} className="p-5 space-y-4">
-
+            <form onSubmit={handleSubmit} className="p-5 space-y-4">
               <div className="space-y-4">
                 <div>
                   <label className="block text-[10px] font-medium text-[#5A5040] mb-1.5 tracking-widest uppercase">
@@ -145,8 +121,8 @@ export default function OrderFormModal({ onClose, onOrderPlaced }) {
                   <label className="block text-[10px] font-medium text-[#5A5040] mb-1.5 tracking-widest uppercase">
                     Mobile Number <span className="text-[#CCA665]">*</span>
                   </label>
-                  <div className="flex">
-                    <div className="px-3 py-3 bg-[#F6F3EE] border border-r-0 border-[#E8DDD0] text-sm text-[#9E958B] shrink-0">
+                  <div className="flex border border-[#E8DDD0] focus-within:border-[#CCA665] transition-all">
+                    <div className="px-3 py-3 bg-[#F6F3EE] border-r border-[#E8DDD0] text-sm text-[#9E958B] shrink-0">
                       +91
                     </div>
                     <input
@@ -156,70 +132,19 @@ export default function OrderFormModal({ onClose, onOrderPlaced }) {
                       onChange={handleChange}
                       maxLength={10}
                       placeholder="10-digit number"
-                      className={`${inputClass} border-l-0`}
+                      className="w-full bg-[#FDFAF6] px-4 py-3 text-sm text-[#181D24] placeholder-[#BDA070] focus:outline-none transition-all"
                       required
                     />
                   </div>
                 </div>
               </div>
 
-              {/* OTP section */}
-              <div className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                otpSent ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
-              }`}>
-                {otpSent && (
-                  <div className="space-y-3 pt-1">
-                    <div>
-                      <label className="block text-[10px] font-medium text-[#5A5040] mb-1.5 tracking-widest uppercase">
-                        Enter OTP <span className="text-[#CCA665]">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        name="otp"
-                        value={formData.otp}
-                        onChange={handleChange}
-                        maxLength={4}
-                        placeholder="4-digit code"
-                        className={inputClass}
-                        required
-                        autoFocus
-                      />
-                    </div>
-                    <div className="flex gap-2.5">
-                      <button
-                        type="button"
-                        onClick={handleResendOtp}
-                        className="flex-1 border border-[#E8DDD0] text-[#9E958B] py-3 text-xs tracking-widest uppercase hover:border-[#CCA665] hover:text-[#CCA665] transition-all"
-                      >
-                        Resend
-                      </button>
-                      <button
-                        type="submit"
-                        className="flex-1 bg-[#CCA665] hover:bg-[#b38e45] text-[#0E0A09] py-3 text-xs font-semibold tracking-[0.2em] uppercase transition-colors"
-                      >
-                        Confirm Order
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {!otpSent && (
-                <button
-                  type="submit"
-                  disabled={isSendingOtp}
-                  className={`w-full bg-[#CCA665] hover:bg-[#b38e45] text-[#0E0A09] py-3.5 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-200 ${
-                    isSendingOtp ? "opacity-60 cursor-not-allowed" : ""
-                  }`}
-                >
-                  {isSendingOtp ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <span className="w-4 h-4 border-2 border-[#0E0A09] border-t-transparent rounded-full animate-spin" />
-                      Sending...
-                    </span>
-                  ) : "Send OTP"}
-                </button>
-              )}
+              <button
+                type="submit"
+                className="w-full bg-[#CCA665] hover:bg-[#b38e45] text-[#0E0A09] px-8 py-3.5 text-xs font-semibold tracking-[0.2em] uppercase transition-colors duration-200"
+              >
+                Confirm Order
+              </button>
             </form>
 
             <p className="text-center text-[10px] text-[#BDA070] pb-5 tracking-wide px-5">

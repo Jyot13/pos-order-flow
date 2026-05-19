@@ -188,106 +188,109 @@ export default function MenuPage() {
   return (
     <div className="min-h-screen bg-[#F6F3EE] font-raleway">
 
-      {/* Header */}
-      <header className="bg-white px-4 py-3 flex items-center justify-between border-b border-[#E8DDD0]">
-        <div className="flex items-center gap-3">
-          <Image
-            src="/website/aureva-logo.png"
-            alt="Aureva"
-            width={36}
-            height={36}
-            className="rounded-sm"
-          />
-          <span className="font-rufina text-base tracking-wider text-[#181D24]">
-            Aureva
-          </span>
-        </div>
+      {/* Sticky header block: logo + search + category tabs */}
+      <div className="sticky top-0 z-30 bg-white">
 
-        <div className="flex items-center gap-2 text-xs">
-          <button className="flex items-center gap-1.5 bg-[#F6F3EE] border border-[#E8DDD0] px-3 py-1.5 text-[#5A5040]">
-            <MdOutlineTableBar size={15} className="text-[#BDA070]" />
-            <span className="font-medium tracking-wide">9</span>
-          </button>
-          <button className="flex items-center gap-1.5 bg-[#F6F3EE] border border-[#E8DDD0] px-3 py-1.5 text-[#5A5040]">
-            <FiUser size={13} className="text-[#BDA070]" />
-            <span className="font-medium tracking-wide hidden sm:inline">Group Order</span>
-            <span className="font-medium tracking-wide sm:hidden">Group</span>
-          </button>
-        </div>
-      </header>
-
-      {/* Search + Filter bar */}
-      <div className="sticky top-0 z-30 bg-white border-b border-[#E8DDD0] px-4 py-2.5">
-        <div className="flex gap-2.5 items-center">
-          <div className="flex-1 relative">
-            <input
-              type="text"
-              placeholder="Search dishes..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full border border-[#E8DDD0] bg-[#FDFAF6] px-4 py-2 pl-9 text-sm text-[#181D24] placeholder-[#BDA070] focus:outline-none focus:border-[#CCA665] focus:ring-1 focus:ring-[#CCA665]/30 transition-all"
+        {/* Header */}
+        <header className="px-4 py-3 flex items-center justify-between border-b border-[#E8DDD0]">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/website/aureva-logo.png"
+              alt="Aureva"
+              width={36}
+              height={36}
+              className="rounded-sm"
             />
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#BDA070]" />
+            <span className="font-rufina text-base tracking-wider text-[#181D24]">
+              Aureva
+            </span>
           </div>
 
-          <div className="relative">
-            <button
-              onClick={() => setFilterDropdownOpen(!filterDropdownOpen)}
-              className="flex items-center gap-2 px-4 py-2 text-xs font-medium border border-[#E8DDD0] bg-white text-[#5A5040] hover:border-[#CCA665] hover:text-[#CCA665] transition-all"
-            >
-              Filter
-              {activeCount > 0 && (
-                <span className="bg-[#CCA665] text-white text-[10px] px-1.5 py-0.5 leading-none">
-                  {activeCount}
-                </span>
-              )}
-              <motion.svg
-                className="w-3 h-3"
-                animate={{ rotate: filterDropdownOpen ? 180 : 0 }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </motion.svg>
+          <div className="flex items-center gap-2 text-xs">
+            <button className="flex items-center gap-1.5 bg-[#F6F3EE] border border-[#E8DDD0] px-3 py-1.5 text-[#5A5040]">
+              <MdOutlineTableBar size={15} className="text-[#BDA070]" />
+              <span className="font-medium tracking-wide">9</span>
             </button>
+            <button className="flex items-center gap-1.5 bg-[#F6F3EE] border border-[#E8DDD0] px-3 py-1.5 text-[#5A5040]">
+              <FiUser size={13} className="text-[#BDA070]" />
+              <span className="font-medium tracking-wide hidden sm:inline">Group Order</span>
+              <span className="font-medium tracking-wide sm:hidden">Group</span>
+            </button>
+          </div>
+        </header>
 
-            <AnimatePresence>
-              {filterDropdownOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -8, scaleY: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scaleY: 1 }}
-                  exit={{ opacity: 0, y: -8, scaleY: 0.95 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute right-0 mt-1.5 w-44 bg-white border border-[#E8DDD0] shadow-lg z-40 origin-top"
+        {/* Search + Filter bar */}
+        <div className="border-b border-[#E8DDD0] px-4 py-2.5">
+          <div className="flex gap-2.5 items-center">
+            <div className="flex-1 relative">
+              <input
+                type="text"
+                placeholder="Search dishes..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full border border-[#E8DDD0] bg-[#FDFAF6] px-4 py-2 pl-9 text-sm text-[#181D24] placeholder-[#BDA070] focus:outline-none focus:border-[#CCA665] focus:ring-1 focus:ring-[#CCA665]/30 transition-all"
+              />
+              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#BDA070]" />
+            </div>
+
+            <div className="relative">
+              <button
+                onClick={() => setFilterDropdownOpen(!filterDropdownOpen)}
+                className="flex items-center gap-2 px-4 py-2 text-xs font-medium border border-[#E8DDD0] bg-white text-[#5A5040] hover:border-[#CCA665] hover:text-[#CCA665] transition-all"
+              >
+                Filter
+                {activeCount > 0 && (
+                  <span className="bg-[#CCA665] text-white text-[10px] px-1.5 py-0.5 leading-none">
+                    {activeCount}
+                  </span>
+                )}
+                <motion.svg
+                  className="w-3 h-3"
+                  animate={{ rotate: filterDropdownOpen ? 180 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"
                 >
-                  <div className="p-3 space-y-1">
-                    {[
-                      { label: "All", checked: filters.veg && filters.nonVeg && filters.egg, onChange: toggleAllFilters },
-                      { label: "Veg", checked: filters.veg, onChange: () => toggleFilter("veg") },
-                      { label: "Non-Veg", checked: filters.nonVeg, onChange: () => toggleFilter("nonVeg") },
-                      { label: "Egg", checked: filters.egg, onChange: () => toggleFilter("egg") },
-                    ].map(({ label, checked, onChange }) => (
-                      <label key={label} className="flex justify-between items-center cursor-pointer text-xs text-[#5A5040] hover:text-[#CCA665] px-1 py-1.5 transition-colors">
-                        <span className="tracking-wide">{label}</span>
-                        <input
-                          type="checkbox"
-                          checked={checked}
-                          onChange={onChange}
-                          className="accent-[#CCA665] w-3.5 h-3.5"
-                        />
-                      </label>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </motion.svg>
+              </button>
+
+              <AnimatePresence>
+                {filterDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8, scaleY: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scaleY: 1 }}
+                    exit={{ opacity: 0, y: -8, scaleY: 0.95 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }}
+                    className="absolute right-0 mt-1.5 w-44 bg-white border border-[#E8DDD0] shadow-lg z-40 origin-top"
+                  >
+                    <div className="p-3 space-y-1">
+                      {[
+                        { label: "All", checked: filters.veg && filters.nonVeg && filters.egg, onChange: toggleAllFilters },
+                        { label: "Veg", checked: filters.veg, onChange: () => toggleFilter("veg") },
+                        { label: "Non-Veg", checked: filters.nonVeg, onChange: () => toggleFilter("nonVeg") },
+                        { label: "Egg", checked: filters.egg, onChange: () => toggleFilter("egg") },
+                      ].map(({ label, checked, onChange }) => (
+                        <label key={label} className="flex justify-between items-center cursor-pointer text-xs text-[#5A5040] hover:text-[#CCA665] px-1 py-1.5 transition-colors">
+                          <span className="tracking-wide">{label}</span>
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={onChange}
+                            className="accent-[#CCA665] w-3.5 h-3.5"
+                          />
+                        </label>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Category tab strip */}
-      <div className="sticky top-12 z-20 bg-white border-b border-[#E8DDD0]">
-        <div className="flex overflow-x-auto scrollbar-hide px-3 py-3 gap-3">
+        {/* Category tab strip */}
+        <div className="border-b border-[#E8DDD0]">
+          <div className="flex overflow-x-auto scrollbar-hide px-3 py-3 gap-3">
           {menuCategories.map((cat) => {
             const isActive = activeCategory === cat.name;
             return (
@@ -333,6 +336,7 @@ export default function MenuPage() {
               </div>
             );
           })}
+        </div>
         </div>
       </div>
 
@@ -421,7 +425,7 @@ export default function MenuPage() {
                               src={item.image}
                               alt={item.name}
                               fill
-                              className="object-cover"
+                              className="object-cover rounded-md"
                               sizes="115px"
                             />
                           </div>

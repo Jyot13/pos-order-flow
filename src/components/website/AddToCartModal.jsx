@@ -103,11 +103,11 @@ export default function AddToCartModal({ onClose, item }) {
                 <Image src={item.image} alt={item.name} fill className="object-cover" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-4 h-4 flex items-center justify-center border border-[#E8DDD0]">
+                <div className="flex items-start gap-2 mb-1">
+                  <div className="w-4 h-4 flex items-center justify-center border border-[#E8DDD0] shrink-0 mt-0.5">
                     {filterIcons[item.filters] || filterIcons.veg}
                   </div>
-                  <h3 className="font-rufina text-base text-[#181D24] tracking-wide truncate">{item.name}</h3>
+                  <h3 className="font-rufina text-base text-[#181D24] tracking-wide leading-snug">{item.name}</h3>
                 </div>
                 {item.description && (
                   <p className="text-[11px] text-[#9E958B] leading-relaxed line-clamp-2">{item.description}</p>

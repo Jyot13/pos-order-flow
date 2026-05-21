@@ -1,7 +1,7 @@
 import AddToCartModal from '@/components/website/AddToCartModal'
 import React from 'react'
 
-export const page = () => {
+export default function Page() {
   return (
     <AddToCartModal />
   )

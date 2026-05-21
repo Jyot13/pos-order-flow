@@ -312,7 +312,7 @@ export default function MenuPage() {
                         : "border-[#E8DDD0] bg-white group-hover:border-[#CCA665]/50"
                     }`}
                   >
-                    <img src={cat.icon} alt={cat.name} className="w-full h-full object-cover" />
+                    <Image src={cat.icon} alt={cat.name} width={56} height={48} className="object-cover w-full h-full" />
                     {isActive && (
                       <motion.span
                         initial={{ scale: 0 }}

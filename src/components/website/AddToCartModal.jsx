@@ -16,6 +16,7 @@ export default function AddToCartModal({ onClose, item }) {
 
   useEffect(() => { setTimeout(() => setIsOpen(true), 10); }, []);
 
+  if (!item) return null;
   const basePrice = item.price || 0;
   const addons = [{ id: 1, name: "Vanilla Syrup", price: 39 }];
 

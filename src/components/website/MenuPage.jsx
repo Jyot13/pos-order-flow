@@ -1,7 +1,15 @@
 "use client";
 
-import Image from "next/image";
 import Menuproducts from "../../data/Menuproducts";
+import logoImg from "../../../public/website/aureva-logo.png";
+import foodImg from "../../../public/website/food.png";
+import food1Img from "../../../public/website/food1.png";
+import platterImg from "../../../public/website/platter.png";
+
+const iconMap = {
+  "/website/food1.png": food1Img.src,
+  "/website/platter.png": platterImg.src,
+};
 import { MdOutlineTableBar } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
 import { useEffect, useRef, useState } from "react";
@@ -194,8 +202,8 @@ export default function MenuPage() {
         {/* Header */}
         <header className="px-4 py-3 flex items-center justify-between border-b border-[#E8DDD0]">
           <div className="flex items-center">
-            <Image
-              src="/website/aureva-logo.png"
+            <img
+              src={logoImg.src}
               alt="Aureva"
               width={52}
               height={52}
@@ -312,7 +320,7 @@ export default function MenuPage() {
                         : "border-[#E8DDD0] bg-white group-hover:border-[#CCA665]/50"
                     }`}
                   >
-                    <Image src={cat.icon} alt={cat.name} width={56} height={48} className="object-cover w-full h-full" />
+                    <img src={iconMap[cat.icon]} alt={cat.name} className="object-cover w-full h-full" />
                     {isActive && (
                       <motion.span
                         initial={{ scale: 0 }}
@@ -423,12 +431,10 @@ export default function MenuPage() {
                         {/* Item image + Add button */}
                         <div className="relative w-28 shrink-0">
                           <div className="relative w-full aspect-square">
-                            <Image
-                              src={item.image}
+                            <img
+                              src={foodImg.src}
                               alt={item.name}
-                              fill
-                              className="object-cover rounded-md"
-                              sizes="115px"
+                              className="object-cover rounded-md absolute inset-0 w-full h-full"
                             />
                           </div>
                           <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-full flex justify-center px-2">

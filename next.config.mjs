@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
+const basePath = process.env.NODE_ENV === 'production' ? '/pos-order-flow' : '';
+
 const nextConfig = {
   reactCompiler: true,
   output: 'export',
-  basePath: '/pos-order-flow',
+  basePath,
   images: {
     unoptimized: true,
   },

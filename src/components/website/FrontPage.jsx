@@ -1,7 +1,7 @@
 "use client"
 
-import Image from "next/image";
 import Link from "next/link";
+import logoImg from "../../../public/website/aureva-logo.png";
 
 export default function AurevaCard() {
     return (
@@ -16,8 +16,8 @@ export default function AurevaCard() {
             <div className="relative z-10 flex flex-col items-center text-center px-8">
 
                 {/* Logo */}
-                <Image
-                    src="/website/aureva-logo.png"
+                <img
+                    src={logoImg.src}
                     alt="Aureva"
                     width={64}
                     height={64}

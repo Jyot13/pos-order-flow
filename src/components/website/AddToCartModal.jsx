@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import foodImg from "../../../public/website/food.png";
 import { FiMinus, FiPlus } from "react-icons/fi";
 import { X } from "lucide-react";
 import { FaLeaf } from "react-icons/fa";
@@ -101,7 +101,7 @@ export default function AddToCartModal({ onClose, item }) {
           <div className="p-4 pt-8 border-b border-[#E8DDD0] flex justify-between items-start gap-4">
             <div className="flex gap-3 flex-1 min-w-0">
               <div className="relative w-16 h-16 shrink-0">
-                <Image src={item.image} alt={item.name} fill className="object-cover" />
+                <img src={foodImg.src} alt={item.name} className="object-cover absolute inset-0 w-full h-full" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-start gap-2 mb-1">

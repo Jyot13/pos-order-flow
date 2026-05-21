@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import logoImg from "../../../public/website/aureva-logo.png";
+import billImg from "../../../public/website/bill.png";
 import { FiClock, FiUser, FiPhone } from "react-icons/fi";
 
 export default function OrdersPage() {
@@ -34,7 +35,7 @@ export default function OrdersPage() {
     <div className="min-h-screen bg-[#F6F3EE] font-raleway">
       <header className="bg-[#0E0A09] px-5 py-4 flex items-center justify-between">
         <div className="flex items-center">
-          <Image src="/website/aureva-logo.png" alt="Aureva" width={52} height={52} className="shadow-md" priority />
+          <img src={logoImg.src} alt="Aureva" width={52} height={52} className="shadow-md" />
         </div>
         <div className="text-right">
           <p className="text-[10px] text-[#9E958B] tracking-widest uppercase">Bills</p>
@@ -45,7 +46,7 @@ export default function OrdersPage() {
       <main className="p-4 pb-24">
         {approvedOrders.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center px-10 min-h-[60vh]">
-            <Image src="/website/bill.png" alt="No Bill" width={140} height={140} priority />
+            <img src={billImg.src} alt="No Bill" width={140} height={140} />
             <h2 className="font-rufina text-xl text-[#181D24] mt-6 tracking-wide">No Bill Generated Yet</h2>
             <p className="text-sm text-[#9E958B] mt-2 max-w-sm tracking-wide">
               Your bill will appear here once you place your order.

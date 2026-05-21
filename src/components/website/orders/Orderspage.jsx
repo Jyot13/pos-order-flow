@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import logoImg from "../../../../public/website/aureva-logo.png";
+import diningImg from "../../../../public/website/dining.png";
 import { FiUser } from "react-icons/fi";
 import { MdOutlineTableBar } from "react-icons/md";
 import { IoRestaurantOutline, IoListOutline } from "react-icons/io5";
@@ -80,7 +81,7 @@ export default function OrdersPage() {
     <div className="min-h-screen bg-[#F6F3EE] font-raleway">
       <header className="bg-[#181D24] px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Image src="/website/aureva-logo.png" alt="Aureva" width={52} height={52} className="shadow-md" />
+          <img src={logoImg.src} alt="Aureva" width={52} height={52} className="shadow-md" />
         </div>
         <div className="flex items-center gap-2 text-xs">
           <div className="relative group">
@@ -143,7 +144,7 @@ export default function OrdersPage() {
         <main className="p-4">
           {orders.length === 0 ? (
             <div className="flex flex-col items-center justify-center text-center py-20">
-              <Image src="/website/dining.png" alt="No Orders" width={140} height={140} />
+              <img src={diningImg.src} alt="No Orders" width={140} height={140} />
               <h2 className="font-rufina text-xl text-[#181D24] mt-6 tracking-wide">No Orders Yet</h2>
               <p className="text-[#9E958B] text-sm mt-2 max-w-xs tracking-wide">
                 You haven&apos;t ordered anything yet. Place your first order.
@@ -192,7 +193,7 @@ export default function OrdersPage() {
         <>
           {approvedOrders.length === 0 ? (
             <main className="flex flex-col items-center justify-center text-center py-20 px-10">
-              <Image src="/website/dining.png" alt="dining" width={140} height={140} priority />
+              <img src={diningImg.src} alt="dining" width={140} height={140} />
               <h2 className="font-rufina text-xl text-[#181D24] mt-6 tracking-wide">No Orders Yet</h2>
               <p className="text-sm text-[#9E958B] mt-2 max-w-sm tracking-wide">
                 You haven&apos;t ordered anything yet. Place your first order.
